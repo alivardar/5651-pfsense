@@ -26,7 +26,7 @@ Windows paylaşımı, FTP paylaşımı veyahutta sistem üzerine takılı FAT32 
 (testlerde ben usb kullandım) üzerine aktarılmasını sağlamak. Özellikle windows paylaşımı 
 yerel ağdaki ağlar, FTP ise çoklu ağlar üzerinde tek bir yerden zaman damgası işlemlerini
 yerine getirmek için ideal olacaktır. Windows paylaşım dizinleri ve ftp dizinleri özellike TİB'e
- ait olan zaman damgalama dizini ile eşleştirilirse sorunsuz bir şekilde işler otomatik olmaktadır.
+ait olan zaman damgalama dizini ile eşleştirilirse sorunsuz bir şekilde işler otomatik olmaktadır.
 
 Örnek log çıktısı;
 
@@ -36,42 +36,40 @@ Gelelim bu çözüme ait yönteme;
 Yöntem :
 
 Downloads->Projects bölümüne yerleştirilen dosyalar kullanılarak kendinize ait olan pfsense üzerinde
- gerekli dosyalar değiştirilerek işler hale getirilebilir.
+gerekli dosyalar değiştirilerek işler hale getirilebilir.
 Yapılması gerekenler;
 Download bölümünde bulunan Projects kısmında ki zip li dosyayı indiriniz ve bir dizine açınız. Pfsense
- kutunuzda SSH aktifleştiriniz ve winscp ve size uygun bir sftp cihazı ile bağlanınız
- /usr/local/www/diag_logs_settings.php dosyasının yedeğini alınız ve zip içinden çıkanı onun yerine
- yazınız.
+kutunuzda SSH aktifleştiriniz ve winscp ve size uygun bir sftp cihazı ile bağlanınız
+/usr/local/www/diag_logs_settings.php dosyasının yedeğini alınız ve zip içinden çıkanı onun yerine
+yazınız.
 Kopyalama yapmadan önce SSH ile bağlanarak
-#mount -uw /
+mount -uw /
 komutunu çalışıtırınız.
 Daha sonra diğer dosyaları /sbin dizine içine kopyalayınız. Çalıştırma haklarını veriniz. Bilindik yol;
-#chmod 755 dosya_adi
+chmod 755 dosya_adi
 Daha sonra diag_log_settings.php içinden girerek ayarlama yapınız.
 Çalışmaya başlamadan önce sisteme sambaclient paketini kurmak gerekiyor. Bunun için pfsense ssh
- ile bağlandıktan sonra aşağıdaki komutları konsolda yazınız.
-#mount -uw /
-#pkg_add -r samba3-smbclient
-#cp /usr/local/etc/smb-client.conf.sample /usr/local/etc/smb-client.conf
+ile bağlandıktan sonra aşağıdaki komutları konsolda yazınız.
+mount -uw /
+pkg_add -r samba3-smbclient
+cp /usr/local/etc/smb-client.conf.sample /usr/local/etc/smb-client.conf
 
 Nasıl kullanılır?
 
 Sunucu kayıtları -> Ayarlar
 Dosya adı diag_logs_settings.php dosyası pfsense üzerinde çalıştırılır. Eğer ingilizce pfsense
- üzerine koymussanız Türkçe karakterlerde saçmalama olacaktır. Logları aldığınız dizinlerinin TİB
- imzalayici ile aynı dizini işaret etmesine dikkat ediniz. Ayarlarınızı yaptıktan sonra;
+üzerine koymussanız Türkçe karakterlerde saçmalama olacaktır. Logları aldığınız dizinlerinin TİB
+imzalayici ile aynı dizini işaret etmesine dikkat ediniz. Ayarlarınızı yaptıktan sonra;
 Test yapmak için SSH ile bağlandıktan sonra;
 ftp test etmek için
-# /sbin/dhcplistcronsftp.sh
+/sbin/dhcplistcronsftp.sh
 windows paylaşımını test etmek için
-# /sbin/dhcplistcronsmb.sh
-
+/sbin/dhcplistcronsmb.sh
 yazarak çıkan sonuçlara göre dosyaları kopyalayıp kopyalamadığı anlaşılabilir.
-
 ---> Sürüm 0.2 Deniz Porsuk bey tarafından gönderilen düzeltmeyi içermektedir. Kendisi logları
  windows domain sistemlere kopyalama yeteneği eklemiştir.
-
 ---> Sürüm 0.3 Technical isimli kullanıcımız tarafından gönderilmiştir. Bu sürümle birlikte
 Pfsense sürüm 2.0 ile ilgili düzenlemeler eklenmiştir.
-
 ---> Sürüm 0.4 Technical hata düzeltmeleri yapmıştır. Forumdan takip ediniz.
+
+![Alt text](http://www.linuxprogramlama.com/images/sunucukayitlari.png "Optional title")
